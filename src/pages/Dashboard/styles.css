@@ -1,0 +1,14 @@
+.dashboard-cards {
+  display: flex;
+}
+
+.dashboard-card {
+  border: 1px solid #D3D3D3;
+  background-color: #fff;
+  border-radius: 7px;
+  padding: 30px;
+}
+
+.middle {
+  margin: 120px 30px 0px 30px
+}

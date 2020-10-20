@@ -1,0 +1,29 @@
+header {
+  background-color: #77CC6E;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.nav-title {
+  padding: 10px 0px;
+  color: #F8F8F8;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  padding: 10px;
+}
+
+nav ul li a {
+  color: #F8F8F8;
+}

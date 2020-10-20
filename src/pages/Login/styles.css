@@ -1,0 +1,25 @@
+.login-container {
+  background-color: #77CC6E;
+}
+
+.login-card {
+  height: 100vh;
+  width: 600px;
+  background-color: #F8FFF8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 60px;
+}
+
+.login-title {
+  margin-bottom: 20px;
+}
+
+.login-email-input {
+  margin-bottom: 10px
+}
+
+.login-button {
+  margin-top: 20px
+}

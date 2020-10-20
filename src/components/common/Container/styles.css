@@ -1,0 +1,12 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media all and (max-width: 720px) {
+  .container {
+    flex-direction: column;
+  }
+}
