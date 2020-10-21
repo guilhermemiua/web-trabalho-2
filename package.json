@@ -7,11 +7,16 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "bootstrap": "^4.5.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-hook-form": "^6.9.5",
+    "react-hooks-use-modal": "^1.0.9",
+    "react-icons": "^3.11.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-toastify": "^6.0.9",
     "redux": "^4.0.5"
   },
   "scripts": {
@@ -35,8 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "eslint": "^7.11.0",
-    "eslint-plugin-react": "^7.21.4"
-  }
+  "devDependencies": {}
 }

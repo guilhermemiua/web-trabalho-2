@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { getToken } from '../helpers/sessionStorage'
+import { getToken, getUser, setUserToSessionStorage } from '../helpers/sessionStorage'
 
 const PrivateRoute = (props) => {
-
   const hasToken = getToken()
+
+  useEffect(() => {
+    const user = getUser()
+
+  }, [])
 
   return hasToken
     ? (

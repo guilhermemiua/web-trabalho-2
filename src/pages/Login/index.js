@@ -1,5 +1,11 @@
-import React, { useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useForm } from "react-hook-form";
+
+import { login, createUser } from '../../requests'
+import { setUser } from '../../store/ducks/user'
+import { setTokenToSessionStorage, setUserToSessionStorage } from '../../helpers/sessionStorage'
 
 import Input from '../../components/common/Input'
 import Label from '../../components/common/Label'
@@ -9,39 +15,118 @@ import './styles.css'
 
 const Login = () => {
 	const { push } = useHistory()
+	const { handleSubmit, register, errors } = useForm();
 
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
+	const dispatch = useDispatch()
 
-	const submit = () => {
-		// if (!email || !password) {
-		// 	return
-		// }
+	const [page, setPage] = useState("login") 
 
-		push('/dashboard')
+	const submit = async (values) => {
+		const { email, password } = values
+		
+		if (page === 'login') {
+			try {
+
+				const { data } = await login({ email, password})
+
+				setTokenToSessionStorage(data.token)
+				setUserToSessionStorage(data.user)
+
+				await dispatch(setUser({ user: data.user }))
+
+				push('/dashboard')
+			} catch(error) {
+				console.log(error.response.data.message || "")
+			}
+		} else if (page === 'register') {
+			try {
+				await createUser({ email, password})
+
+				const { data } = await login({ email, password })
+
+				setTokenToSessionStorage(data.token)
+				setUserToSessionStorage(data.user)
+
+				await dispatch(setUser({ user: data.user }))
+
+				push('/dashboard')
+			} catch(error) {
+				console.log(error.response.data.message || "")
+			}
+		}
 	}
 
 	return (
 		<div className="login-container">
 			<div className="login-card">
-				<h1 className="login-title">Welcome to Green!</h1>
-				<Label>Email</Label>
-				<Input 
-					className="login-email-input" 
-					onChange={(event) => setEmail(event.target.value)}
-				/>
+				<form onSubmit={handleSubmit(submit)}>
+					<h1 className="login-title">{page === 'login' ? 'Welcome!' : 'Register!'}</h1>
+					<Label>Email</Label>
+					<Input 
+						className="login-email-input"
+						name="email"
+						ref={register({
+							required: {
+								value: true,
+								message: "Email is required"
+							},
+						})}
+					/>
+					{errors.email && errors.email.message}
+					<Label>Password</Label>
+					<Input 
+						name="password"
+						ref={register({
+							required: {
+								value: true,
+								message: "Password is required"
+							},
+						})}
+					/>
+					{errors.password && errors.password.message}
+					
+					{
+						page === 'login' 
+						? (
+							<Fragment>
+								<Button 
+									color="primary" 
+									className={"login-button"}
+									type="submit"
+								>
+									Login
+								</Button>
 
-				<Label>Password</Label>
-				<Input 
-					onChange={(event) => setPassword(event.target.value)}
-				/>
-				<Button 
-					color="primary" 
-					className={"login-button"}
-					onClick={() => submit()}
-				>
-					Login
-				</Button>
+								<Button 
+									color="ghost" 
+									className={"login-button"}
+									onClick={() => setPage("register")}
+								>
+									Register
+								</Button>
+							</Fragment>
+						)
+						: (
+							<Fragment>
+								<Button 
+									color="primary" 
+									className={"login-button"}
+									type="submit"
+								>
+									Register
+								</Button>
+
+								<Button 
+									color="ghost" 
+									className={"login-button"}
+									onClick={() => setPage("login")}
+								>
+									Login
+								</Button>
+							</Fragment>
+						)
+					}
+				</form>
 			</div>
 		</div>
 	)

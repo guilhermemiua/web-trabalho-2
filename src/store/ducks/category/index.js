@@ -1,32 +1,32 @@
 const types = {
-  SET_USER: 'user/SET_USER'
+  GET_CATEGORIES: 'categories/GET_CATEGORIES'
 }
 
 const initalState = {
-  user: {}
+  categories: []
 }
 
 export default function userReducer(state = initalState, action = {}) {
   switch (action.type) {
-    case types.SET_USER:
+    case types.GET_CATEGORIES:
       return {
         ...state,
-        user: action.payload.user
+        categories: action.payload.categories
       }
 
     default: return state;
   }
 }
 
-function setUser({ user }) {
+function getCategoriesAction({ categories }) {
   return { 
-    type: types.SET_USER, 
+    type: types.GET_CATEGORIES, 
     payload: {
-      user
+      categories
     }
   };
 }
 
 export {
-  setUser
+  getCategoriesAction
 }

@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { forwardRef} from 'react'
 
 import './styles.css'
 
-const Input = ({ className }, props) => {
+const Input = ({ className, ...props }, ref) => {
 	return (
-		<input className={`input ${className}`} {...props}/>
+		<input ref={ref} className={`input ${className}`} {...props}/>
 	)
 }
 
-export default Input
+export default forwardRef(Input)

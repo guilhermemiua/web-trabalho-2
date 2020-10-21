@@ -14,6 +14,7 @@ nav {
 .nav-title {
   padding: 10px 0px;
   color: #F8F8F8;
+  cursor: pointer;
 }
 
 nav ul {
@@ -24,6 +25,7 @@ nav ul li {
   padding: 10px;
 }
 
-nav ul li a {
+nav ul li .link-button {
   color: #F8F8F8;
+  font-size: 1rem;
 }

@@ -1,6 +1,17 @@
 .button {
   font-family: 'Poppins Medium';
-  width: 100%;
-  padding: 10px 0px;
+  padding: 10px 40px;
   border-radius: 3px;
+  color: #F8F8F8;
+}
+
+.ghost {
+  background-color: #F8F8F8;
+  color: #77CC6E;
+  border: 1px solid #77CC6E;
+}
+
+.primary {
+  background-color: #77CC6E;
+  border: 1px solid #77CC6E;
 }

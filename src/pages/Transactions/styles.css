@@ -1,0 +1,33 @@
+.new-transaction-button {
+  margin: 5px 0;
+}
+
+.transactions-table {
+  width: 100%;  
+  table-layout: fixed;
+}
+
+.transactions-table th {
+  text-align: left;
+  padding: 10px 0px 10px 20px;
+  color: #F8F8F8;
+}
+
+.transactions-table td {
+  padding: 10px 0px 10px 20px;
+  border-bottom: 1px solid #D3D3D3;
+}
+
+.transaction-input {
+  margin-bottom: 10px;
+}
+
+.transaction-modal-submit-button {
+  margin-top: 10px;
+  float: right;
+}
+
+.transaction-modal-delete-buttons {
+  margin-top: 20px;
+  float: right;
+}

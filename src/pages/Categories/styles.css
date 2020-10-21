@@ -1,0 +1,29 @@
+.new-category-button {
+  margin: 5px 0;
+}
+
+.categories-table {
+  width: 100%;  
+  table-layout: fixed;
+}
+
+.categories-table th {
+  text-align: left;
+  padding: 10px 0px 10px 20px;
+  color: #F8F8F8;
+}
+
+.categories-table td {
+  padding: 10px 0px 10px 20px;
+  border-bottom: 1px solid #D3D3D3;
+}
+
+.category-modal-submit-button {
+  margin-top: 10px;
+  float: right;
+}
+
+.category-modal-delete-buttons {
+  margin-top: 20px;
+  float: right;
+}

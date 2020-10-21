@@ -12,6 +12,12 @@
   padding: 0px 60px;
 }
 
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .login-title {
   margin-bottom: 20px;
 }

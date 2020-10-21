@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	'env': {
 		'browser': true,
 		'es2021': true
@@ -18,6 +18,7 @@ module.exports = {
 		'react'
 	],
 	'rules': {
+		'react/prop-types': 'off',
 		'indent': [
 			'error',
 			'tab'

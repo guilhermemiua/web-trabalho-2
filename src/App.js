@@ -6,6 +6,7 @@ import store from './store'
 
 import './reset.css'
 import './App.css'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
 	return (

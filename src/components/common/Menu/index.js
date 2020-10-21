@@ -2,34 +2,51 @@
 
 import React from 'react'
 
+import { useHistory } from 'react-router-dom'
+import { removeTokenFromSessionStorage, removeUserFromSessionStorage } from '../../../helpers/sessionStorage'
+
 import './styles.css'
 
 const Menu = ({}) => {
+
+  const { push } = useHistory()
+
 	return (
 		<header>
-      <nav class="nav-container">
-        <h2 className="nav-title">GREEN</h2>
+      <nav className="nav-container">
+        <h2 className="nav-title" onClick={() => push('/dashboard')}>
+          GREEN
+        </h2>
 
         <ul>
           <li>
-            <a href="#">
+            <button 
+             className="link-button primary"
+             onClick={() => push('/transactions')}
+            >
               Transactions
-            </a>
+            </button>
           </li>
           <li>
-            <a href="#">
+            <button 
+              className="link-button primary"
+              onClick={() => push('/categories')}
+            >
               Categories
-            </a>
+            </button>
           </li>
           <li>
-            <a href="#">
-              Profile
-            </a>
-          </li>
-          <li>
-            <a href="#">
+            <button 
+              className="link-button primary"
+              onClick={() => {
+                removeTokenFromSessionStorage()
+                removeUserFromSessionStorage()
+
+                push('/login')
+              }}
+            >
               Logout
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
