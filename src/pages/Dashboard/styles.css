@@ -1,12 +1,18 @@
 .dashboard-cards {
   display: flex;
+  width: 100%;
 }
 
 .dashboard-card {
   border: 1px solid #D3D3D3;
-  background-color: #fff;
-  border-radius: 7px;
+  background-color: #f8f8f8;
+  border-radius: 3px;
   padding: 30px;
+  flex: 1;
+}
+
+.dashboard-card h3 {
+  color: #f8f8f8;
 }
 
 .middle {

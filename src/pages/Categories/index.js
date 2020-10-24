@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from "react-hook-form"
 import { ToastContainer, toast } from 'react-toastify'
 
-import useModal from 'react-hooks-use-modal'
-
 import { SpaceHorizontal } from '../../components/common/Space'
 import Label from '../../components/common/Label'
 import Input from '../../components/common/Input'
@@ -13,7 +11,7 @@ import Button from '../../components/common/Button'
 import Container from '../../components/common/Container'
 import Menu from '../../components/common/Menu'
 import PageTitle from '../../components/common/PageTitle'
-import ModalContainer from '../../components/common/Modal'
+import ModalContainer from '../../components/common/ModalContainer'
 import ErrorMessage from '../../components/common/ErrorMessage'
 
 import { createCategory, getCategories, editCategory, deleteCategory } from '../../requests'
@@ -23,18 +21,14 @@ import './styles.css'
 
 const Categories = () => {
 	const dispatch = useDispatch()
-	const [Modal, open, close] = useModal('root', {
-		preventScroll: true
-	})	
-	const [ModalDelete, openModalDelete, closeModalDelete] = useModal('root', {
-		preventScroll: true
-	})	
 
 	// Para saber se é edição ou criação
+	const [createModal, setCreateModal] = useState(false)
+	const [deleteModal, setDeleteModal] = useState(false)
 	const [formType, setFormType] = useState("")
 	const [categoryId, setCategoryId] = useState(null)
 
-	const { handleSubmit, register, errors, setValue } = useForm();
+	const { handleSubmit, register, errors, setValue, reset } = useForm();
 
 	const categories = useSelector(state => {
 		return state.categoryReducer.categories
@@ -57,7 +51,9 @@ const Categories = () => {
 
 			toast.success('Success!')
 
-			close()
+			setCreateModal(false)
+
+			reset()
 		} catch(error) {
 			toast.error(error?.response?.data?.message || "Error!")
 		}
@@ -73,10 +69,19 @@ const Categories = () => {
 
 			toast.success('Success!')
 
-			closeModalDelete()
+			setDeleteModal(false)
 		} catch(error) {
 			toast.error(error?.response?.data?.message || "Error!")
 		}
+	}
+
+	const closeModalDelete = () => {
+		setDeleteModal(false)
+	}
+
+	const closeModalCreate = () => {
+		setCreateModal(false)
+		reset()
 	}
 
 	const getData = async () => {
@@ -104,7 +109,7 @@ const Categories = () => {
 						color="primary" 
 						onClick={() => {
 							setFormType("create")
-							open()
+							setCreateModal(true)
 						}}
 						className="new-category-button"
 					>
@@ -134,7 +139,7 @@ const Categories = () => {
 											color="#77CC6E" 
 											cursor="pointer"
 											onClick={async () => {
-												await open()
+												await setCreateModal(true)
 												setFormType("edit")
 												setCategoryId(category.id)
 												setValue('name', category.name)
@@ -147,7 +152,7 @@ const Categories = () => {
 											color="#77CC6E" 
 											cursor="pointer"
 											onClick={async () => {
-												await openModalDelete()
+												await setDeleteModal(true)
 												setCategoryId(category.id)
 											}}
 										/>
@@ -160,61 +165,62 @@ const Categories = () => {
 				</div>
 			</Container>
 
-			<Modal>
-				<ModalContainer
-          title={formType === 'create' ? 'Create Category' : 'Edit Category'}
-        > 
-          <form onSubmit={handleSubmit(submit)}>
-						<Label>Name</Label>
-						<Input 
-							name="name"
-							ref={register({
-								required: {
-									value: true,
-									message: "Name is required"
-								},
-							})}
-						/>
+			<ModalContainer
+				visible={createModal}
+				title={formType === 'create' ? 'Create Category' : 'Edit Category'}
+				onClose={() => closeModalCreate()}
+			> 
+				<form onSubmit={handleSubmit(submit)}>
+					<Label>Name</Label>
+					<Input 
+						type="text"
+						name="name"
+						ref={register({
+							required: {
+								value: true,
+								message: "Name is required"
+							},
+						})}
+					/>
 
-						<ErrorMessage>
-							{errors.name && errors.name.message}
-						</ErrorMessage>
+					<ErrorMessage>
+						{errors.name && errors.name.message}
+					</ErrorMessage>
 
-						<Button 
-							color="primary" 
-							className="category-modal-submit-button" 
-							type="submit"
-						>
-							{formType === 'create' ? 'Create' : 'Edit'}
-						</Button>
-					</form>
-			 	</ModalContainer>
-			</Modal>
+					<Button 
+						color="primary" 
+						className="category-modal-submit-button" 
+						type="submit"
+					>
+						{formType === 'create' ? 'Create' : 'Edit'}
+					</Button>
+				</form>
+			</ModalContainer>
 
-			<ModalDelete>
-				<ModalContainer
-					title="Delete"
-					width={400}
-					height={200}
-        > 
-					<p>Do you really want to delete this category?</p>
-					<div className="category-modal-delete-buttons">
-						<Button 
-							color="ghost" 
-							onClick={() => closeModalDelete()}
-						>
-							Cancel
-						</Button>
-						<SpaceHorizontal />
-						<Button 
-							color="primary" 
-							onClick={() => confirmDelete()}
-						>
-							Delete
-						</Button>
-					</div>
-			 	</ModalContainer>
-			</ModalDelete>
+			<ModalContainer
+				visible={deleteModal}
+				title="Delete"
+				width={400}
+				height={200}
+				onClose={() => closeModalDelete()}
+			> 
+				<p>Do you really want to delete this category?</p>
+				<div className="category-modal-delete-buttons">
+					<Button 
+						color="ghost" 
+						onClick={() => closeModalDelete()}
+					>
+						Cancel
+					</Button>
+					<SpaceHorizontal />
+					<Button 
+						color="primary" 
+						onClick={() => confirmDelete()}
+					>
+						Delete
+					</Button>
+				</div>
+			</ModalContainer>
 
 			<ToastContainer />
 		</>

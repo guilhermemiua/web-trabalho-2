@@ -23,6 +23,7 @@ const getUserTransactions = async ({}) => {
 }
 
 const createTransaction = async ({ 
+  type,
   name,
   transaction_category_id, 
   amount
@@ -30,6 +31,7 @@ const createTransaction = async ({
   const token = getToken()
 
   return api.post('/transactions', {
+    type,
     name,
     transaction_category_id, 
     amount
@@ -42,6 +44,7 @@ const createTransaction = async ({
 
 const editTransaction = async ({ 
   id,
+  type,
   name,
   transaction_category_id, 
   amount
@@ -49,6 +52,7 @@ const editTransaction = async ({
   const token = getToken()
   
   return api.put(`/transactions/${id}`, {
+    type,
     name,
     transaction_category_id, 
     amount

@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form"
+import { ToastContainer, toast } from 'react-toastify'
 
 import { login, createUser } from '../../requests'
 import { setUser } from '../../store/ducks/user'
@@ -36,7 +37,7 @@ const Login = () => {
 
 				push('/dashboard')
 			} catch(error) {
-				console.log(error.response.data.message || "")
+				toast.error(error?.response?.data?.message || "Error!")
 			}
 		} else if (page === 'register') {
 			try {
@@ -51,7 +52,7 @@ const Login = () => {
 
 				push('/dashboard')
 			} catch(error) {
-				console.log(error.response.data.message || "")
+				toast.error(error?.response?.data?.message || "Error!")
 			}
 		}
 	}
@@ -73,22 +74,23 @@ const Login = () => {
 						})}
 					/>
 					{errors.email && errors.email.message}
-					<Label>Password</Label>
-					<Input 
-						name="password"
-						ref={register({
-							required: {
-								value: true,
-								message: "Password is required"
-							},
-						})}
-					/>
-					{errors.password && errors.password.message}
 					
 					{
 						page === 'login' 
 						? (
 							<Fragment>
+								<Label>Password</Label>
+								<Input 
+									type="password"
+									name="password"
+									ref={register({
+										required: {
+											value: true,
+											message: "Password is required"
+										},
+									})}
+								/>
+								{errors.password && errors.password.message}
 								<Button 
 									color="primary" 
 									className={"login-button"}
@@ -108,6 +110,17 @@ const Login = () => {
 						)
 						: (
 							<Fragment>
+								<Label>Password</Label>
+								<Input 
+									name="password"
+									ref={register({
+										required: {
+											value: true,
+											message: "Password is required"
+										},
+									})}
+								/>
+								{errors.password && errors.password.message}
 								<Button 
 									color="primary" 
 									className={"login-button"}
@@ -127,6 +140,8 @@ const Login = () => {
 						)
 					}
 				</form>
+
+				<ToastContainer />
 			</div>
 		</div>
 	)
