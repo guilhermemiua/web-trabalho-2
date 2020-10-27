@@ -14,7 +14,7 @@ import PageTitle from '../../components/common/PageTitle'
 import ModalContainer from '../../components/common/ModalContainer'
 import ErrorMessage from '../../components/common/ErrorMessage'
 
-import { createCategory, getCategories, editCategory, deleteCategory } from '../../requests'
+import { createCategory, getUserCategories, editCategory, deleteCategory } from '../../requests'
 import { getCategoriesAction } from '../../store/ducks/category'
 
 import './styles.css'
@@ -86,7 +86,7 @@ const Categories = () => {
 
 	const getData = async () => {
 		try {
-			const { data } = await getCategories({})
+			const { data } = await getUserCategories({})
 
 			await dispatch(getCategoriesAction({ categories: data }))
 		} catch(error) {

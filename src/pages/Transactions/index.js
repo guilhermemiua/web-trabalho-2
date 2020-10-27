@@ -15,7 +15,7 @@ import ModalContainer from '../../components/common/ModalContainer'
 import ErrorMessage from '../../components/common/ErrorMessage'
 
 import { SpaceHorizontal } from '../../components/common/Space'
-import { createTransaction, getUserTransactions, editTransaction, deleteTransaction, getCategories } from '../../requests'
+import { createTransaction, getUserTransactions, editTransaction, deleteTransaction, getCategories, getUserCategories } from '../../requests'
 import { getUserTransactionsAction } from '../../store/ducks/transaction'
 import { getCategoriesAction } from '../../store/ducks/category'
 
@@ -90,7 +90,7 @@ const Transactions = () => {
   
   const getAndSetCategories = async () => {
 		try {
-			const { data } = await getCategories({})
+			const { data } = await getUserCategories({})
 
 			await dispatch(getCategoriesAction({ categories: data }))
 		} catch(error) {

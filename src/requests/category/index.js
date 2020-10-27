@@ -2,10 +2,10 @@ import api from '../../config/api'
 
 import { getToken } from '../../helpers/sessionStorage'
 
-const getCategories = async ({}) => {
+const getUserCategories = async ({}) => {
   const token = getToken()
 
-  return api.get('/transaction-categories', {
+  return api.get('/users/transaction-categories', {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -54,7 +54,7 @@ const deleteCategory = async ({
 }
 
 export {
-  getCategories,
+  getUserCategories,
   createCategory,
   editCategory,
   deleteCategory
